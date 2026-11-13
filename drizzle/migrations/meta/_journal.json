@@ -15,6 +15,13 @@
       "when": 1794545395143,
       "tag": "0001_admin_job_create_and_external_listings",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1794545676780,
+      "tag": "0002_fix_job_create_link_check",
+      "breakpoints": true
     }
   ]
 }

@@ -28,3 +28,7 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Project rules
+- Curated jobs from other companies use `jobs.is_external`; learners apply via `apply_url`, and `applyToJob` rejects them server-side. Why: in-app applications to another company's role would never reach that company.
+- Admin job creation goes through `admin_manage('job_create')`, mirrored client-side by `src/lib/job-listing.ts`. Why: one audited, admin-checked write path; keep both validators in sync.
