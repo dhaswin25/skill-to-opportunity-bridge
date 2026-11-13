@@ -32,3 +32,5 @@ use the editor.
 ## Project rules
 - Curated jobs from other companies use `jobs.is_external`; learners apply via `apply_url`, and `applyToJob` rejects them server-side. Why: in-app applications to another company's role would never reach that company.
 - Admin job creation goes through `admin_manage('job_create')`, mirrored client-side by `src/lib/job-listing.ts`. Why: one audited, admin-checked write path; keep both validators in sync.
+- Signup roles: `handle_new_user` on `auth.users` creates the profile and, only for email signups with `account_type` candidate/student/employer, the starting role (employers start pending). Signups without a type (Google) pick in-app via `choose_account_type`. Why: defaulting OAuth users to student would lock employers out of choosing; admin is never granted from signup data.
+- Copilot answer length is capped by `ai_configuration.max_output_tokens` (passed as `maxOutputTokens`). Why: bounds per-request cost; edited via `admin_manage('ai_save')`.

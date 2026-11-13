@@ -12,7 +12,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Panel, StatCard, StatusPill, fmtDateTime, fmtNum, useAdminAction } from "@/components/admin/admin-ui";
 import { adminSnapshotQuery } from "@/lib/queries";
 import { getAiServerStatus } from "@/lib/admin.functions";
-import { AI_MODELS, DEFAULT_AI_MODEL, DEFAULT_SYSTEM_PROMPT, aiMode, estimateCredits } from "@/lib/ai-models";
+import { AI_MODELS, DEFAULT_AI_MODEL, DEFAULT_MAX_OUTPUT_TOKENS, DEFAULT_SYSTEM_PROMPT, aiMode, estimateCredits } from "@/lib/ai-models";
 import { estimatedSpend } from "@/lib/admin-stats";
 
 export const Route = createFileRoute("/_authenticated/admin/ai")({ component: AiPage });
@@ -29,12 +29,13 @@ function AiPage() {
     model: cfg?.model ?? DEFAULT_AI_MODEL,
     system_prompt: cfg?.system_prompt ?? DEFAULT_SYSTEM_PROMPT,
     daily_limit: cfg?.daily_limit ?? 20,
+    max_output_tokens: cfg?.max_output_tokens ?? DEFAULT_MAX_OUTPUT_TOKENS,
   });
   const mode = aiMode(cfg);
   const live = s.ai_usage.filter((u) => u.status !== "demo");
   const errors = s.ai_usage.filter((u) => u.status === "error");
   const userName = new Map(s.users.map((u) => [u.id, u.full_name || u.email || "User"]));
-  const valid = form.system_prompt.trim().length >= 10 && form.daily_limit >= 1 && form.daily_limit <= 1000;
+  const valid = form.system_prompt.trim().length >= 10 && form.daily_limit >= 1 && form.daily_limit <= 1000 && form.max_output_tokens >= 256 && form.max_output_tokens <= 32000;
 
   return (
     <>
@@ -65,6 +66,10 @@ function AiPage() {
               </label>
               <label className="block space-y-1"><span className="text-sm font-medium">Requests per user per day</span>
                 <Input type="number" min={1} max={1000} value={form.daily_limit} onChange={(e) => setForm({ ...form, daily_limit: Number(e.target.value) })} />
+              </label>
+              <label className="block space-y-1"><span className="text-sm font-medium">Max tokens per answer</span>
+                <Input type="number" min={256} max={32000} value={form.max_output_tokens} onChange={(e) => setForm({ ...form, max_output_tokens: Number(e.target.value) })} />
+                <span className="text-xs text-muted-foreground">Caps how long (and how costly) a single Copilot answer can be.</span>
               </label>
               <label className="block space-y-1"><span className="text-sm font-medium">System prompt</span>
                 <Textarea rows={6} maxLength={10000} value={form.system_prompt} onChange={(e) => setForm({ ...form, system_prompt: e.target.value })} />
