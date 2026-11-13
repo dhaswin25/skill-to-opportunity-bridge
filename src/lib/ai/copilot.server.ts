@@ -2,7 +2,7 @@
 import { createOpenAI } from "@ai-sdk/openai";
 import { streamText } from "ai";
 import { createLovableAiGatewayRunIdFetch } from "./run-id";
-import { aiMode, DEFAULT_AI_MODEL, DEFAULT_SYSTEM_PROMPT, demoAnswer, estimateCredits, isKnownModel } from "../ai-models";
+import { aiMode, DEFAULT_AI_MODEL, DEFAULT_MAX_OUTPUT_TOKENS, DEFAULT_SYSTEM_PROMPT, demoAnswer, estimateCredits, isKnownModel } from "../ai-models";
 import { assertActive } from "../app.server";
 
 const GATEWAY = "https://ai.gateway.lovable.dev/v1";
@@ -42,6 +42,7 @@ export async function runCopilot(userId: string, question: string) {
       instructions: cfg?.system_prompt || DEFAULT_SYSTEM_PROMPT,
       messages: [{ role: "user", content: question }],
       maxRetries: 0,
+      maxOutputTokens: cfg?.max_output_tokens ?? DEFAULT_MAX_OUTPUT_TOKENS,
       onError: ({ error }) => { failure = error; },
       providerOptions: {
         openai: { store: false, forceReasoning: true, reasoningEffort: "low", reasoningSummary: "auto", include: ["reasoning.encrypted_content"] },

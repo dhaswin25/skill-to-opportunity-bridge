@@ -17,7 +17,7 @@ export type AdminReport = { id: string; reporter_id: string; reported_id: string
 export type AuditLog = { id: string; actor_id: string | null; action: string; target_id: string | null; details: Json; created_at: string };
 export type ContentKind = "skill" | "skill_category" | "career_path" | "resource" | "assessment" | "project_challenge" | "job_category" | "transition";
 export type PlatformContent = { id: string; kind: ContentKind; slug: string; title: string; body: { description?: string; url?: string } & Record<string, unknown>; published: boolean; updated_at: string };
-export type AiConfig = { id: number; enabled: boolean; demo_mode: boolean; provider: string; model: string; system_prompt: string; daily_limit: number; paused_reason: string | null; updated_at: string };
+export type AiConfig = { id: number; enabled: boolean; demo_mode: boolean; provider: string; model: string; system_prompt: string; daily_limit: number; max_output_tokens: number; paused_reason: string | null; updated_at: string };
 export type AiUsage = { id: string; user_id: string; model: string; status: "pending" | "success" | "error" | "demo"; input_tokens: number; output_tokens: number; cost_credits: number | null; error_message: string | null; created_at: string };
 export type NameValue = { name: string; value: number };
 

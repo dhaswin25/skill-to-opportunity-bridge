@@ -58,3 +58,6 @@ export function demoAnswer(question: string) {
     "5. **Apply early.** Use Job Matches to apply once you cover most of the core skills — you don't need 100%.",
   ].join("\n");
 }
+
+/** Longest answer (in tokens) the Copilot may generate per question, unless an admin changes it. */
+export const DEFAULT_MAX_OUTPUT_TOKENS = 10_000;
