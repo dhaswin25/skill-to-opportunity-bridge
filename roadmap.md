@@ -7,3 +7,4 @@
 - [x] Courses & learning sources expanded in the skill library and 37 published content items seeded across 6 tracks.
 - [x] Employer flow verified end to end: signup -> pending, admin approve, workspace unlocked.
 - [x] Security test suite added (src/lib/__tests__/admin-security.test.ts); full vitest run passes 33/33.
+- [x] Control Center "Post a job" form added; 8 currently open roles (Coinbase, Databricks x3, Figma, Cloudflare, Pinterest, MongoDB) posted, each linking to the official apply page.
