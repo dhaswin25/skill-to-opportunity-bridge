@@ -95,7 +95,7 @@ function Jobs() {
                 {!canApplyInApp(job) ? (
                   job.apply_url && (
                     <Button asChild variant="hero" size="sm">
-                      <a href={job.apply_url} target="_blank" rel="noreferrer"><ExternalLink /> Apply on {job.company_name}'s site</a>
+                      <a href={job.apply_url} target="_blank" rel="noreferrer"><ExternalLink /> Apply at {job.company_name}</a>
                     </Button>
                   )
                 ) : applied.has(job.id) ? (
