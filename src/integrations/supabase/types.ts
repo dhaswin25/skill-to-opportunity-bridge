@@ -242,6 +242,7 @@ export type Database = {
           description: string
           experience_level: string
           id: string
+          is_external: boolean
           is_sample: boolean
           job_type: string
           location: string
@@ -259,6 +260,7 @@ export type Database = {
           description: string
           experience_level: string
           id?: string
+          is_external?: boolean
           is_sample?: boolean
           job_type: string
           location: string
@@ -276,6 +278,7 @@ export type Database = {
           description?: string
           experience_level?: string
           id?: string
+          is_external?: boolean
           is_sample?: boolean
           job_type?: string
           location?: string
