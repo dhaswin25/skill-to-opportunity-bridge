@@ -84,8 +84,9 @@ export const applyToJob = createServerFn({ method: "POST" })
     const { assertActive } = await import("./app.server");
     await assertActive(context.userId);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    const { data: job } = await supabaseAdmin.from("jobs").select("id").eq("id", data.jobId).eq("published", true).maybeSingle();
+    const { data: job } = await supabaseAdmin.from("jobs").select("id, is_external").eq("id", data.jobId).eq("published", true).maybeSingle();
     if (!job) throw new Error("This role is no longer accepting applications");
+    if (job.is_external) throw new Error("Apply for this role on the company's own careers site");
     const { error } = await supabaseAdmin.from("applications").insert({
       user_id: context.userId,
       job_id: data.jobId,

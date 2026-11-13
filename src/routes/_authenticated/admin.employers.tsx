@@ -1,11 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { useState } from "react";
-import { ExternalLink } from "lucide-react";
+import { ExternalLink, Plus } from "lucide-react";
 import { PageHeader, SampleBadge } from "@/components/app/brand";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Panel, ReasonDialog, StatusPill, fmtDate, useAdminAction } from "@/components/admin/admin-ui";
+import { PostJobDialog } from "@/components/admin/post-job-dialog";
 import { adminSnapshotQuery } from "@/lib/queries";
 import type { AdminJob, AdminUser } from "@/lib/admin-types";
 
@@ -19,6 +20,7 @@ function EmployersPage() {
   const [pending, setPending] = useState<Pending | null>(null);
   const [jobQ, setJobQ] = useState("");
   const [jobFilter, setJobFilter] = useState("all");
+  const [posting, setPosting] = useState(false);
   const employers = s.users.filter((u) => u.roles.includes("employer"));
   const companyOf = (id: string) => s.companies.find((c) => c.owner_id === id);
   const order = { pending: 0, rejected: 1, approved: 2 } as const;
@@ -74,7 +76,8 @@ function EmployersPage() {
 
       <div className="mt-6">
         <Panel title={`Job postings (${s.jobs.length})`} action={
-          <div className="flex gap-2">
+          <div className="flex flex-wrap justify-end gap-2">
+            <Button size="sm" variant="hero" className="h-9" onClick={() => setPosting(true)}><Plus /> Post a job</Button>
             <Input className="h-9 w-44" placeholder="Search jobs" value={jobQ} onChange={(e) => setJobQ(e.target.value)} />
             <select className="h-9 rounded-md border border-input bg-background px-2 text-sm" value={jobFilter} onChange={(e) => setJobFilter(e.target.value)} aria-label="Filter jobs">
               <option value="all">All</option><option value="live">Live</option><option value="removed">Removed</option>
@@ -86,7 +89,7 @@ function EmployersPage() {
               {jobs.map((j) => (
                 <li key={j.id} className="flex flex-wrap items-start justify-between gap-3 py-3">
                   <div className="min-w-0 flex-1">
-                    <p className="font-medium">{j.title} {j.is_sample && <SampleBadge />}</p>
+                    <p className="font-medium">{j.title} {j.is_sample && <SampleBadge />} {j.is_external && <StatusPill tone="muted">Applies on company site</StatusPill>}</p>
                     <p className="text-xs text-muted-foreground">{j.company_name} · {j.location} · {j.job_type} · {j.category} · posted {fmtDate(j.created_at)}</p>
                     <p className="mt-1 line-clamp-2 text-sm text-muted-foreground">{j.description}</p>
                     {j.apply_url && <a href={j.apply_url} target="_blank" rel="noreferrer" className="mt-1 inline-flex items-center gap-1 text-xs text-accent underline"><ExternalLink className="size-3" /> External link</a>}
@@ -104,6 +107,7 @@ function EmployersPage() {
         </Panel>
       </div>
 
+      <PostJobDialog open={posting} onClose={() => setPosting(false)} />
       <ReasonDialog open={!!pending} title={pending ? titles[pending.kind] : ""} confirmLabel="Confirm" destructive={pending?.kind === "reject" || pending?.kind === "suspend" || pending?.kind === "unpublish"}
         pending={action.isPending} onClose={() => setPending(null)} onConfirm={confirm} />
     </>

@@ -8,6 +8,7 @@ import { AppShell } from "@/components/app/app-layout";
 import { EmptyState, PageHeader, SampleBadge } from "@/components/app/brand";
 import { applicationsQuery, jobsQuery, profileQuery, savedJobsQuery, sessionUserQuery, skillMatch } from "@/lib/queries";
 import { applyToJob, saveJob } from "@/lib/app.functions";
+import { canApplyInApp } from "@/lib/job-listing";
 
 export const Route = createFileRoute("/_authenticated/jobs")({
   head: () => ({
@@ -69,8 +70,9 @@ function Jobs() {
                   <h3 className="text-lg font-semibold">
                     {job.title} {job.is_sample && <SampleBadge />}
                   </h3>
+                  {job.is_external && <p className="mt-0.5 text-xs text-muted-foreground">Open role curated by SkillBridge · applications go to the company directly</p>}
                   <p className="mt-1 text-sm text-muted-foreground">
-                    {job.company_name} · <MapPin className="inline size-3.5" /> {job.location} · {job.job_type} · {job.experience_level}
+                    {job.company_name} · <MapPin className="inline size-3.5" /> {job.location} · {job.job_type.replace("_", " ")} · {job.experience_level}
                   </p>
                 </div>
                 <div className="text-right">
@@ -89,8 +91,14 @@ function Jobs() {
                   );
                 })}
               </div>
-              <div className="mt-4 flex flex-wrap gap-2">
-                {applied.has(job.id) ? (
+              <div className="mt-4 flex flex-wrap items-center gap-2">
+                {!canApplyInApp(job) ? (
+                  job.apply_url && (
+                    <Button asChild variant="hero" size="sm">
+                      <a href={job.apply_url} target="_blank" rel="noreferrer"><ExternalLink /> Apply on {job.company_name}'s site</a>
+                    </Button>
+                  )
+                ) : applied.has(job.id) ? (
                   <Button variant="glass" size="sm" disabled>Applied ✓</Button>
                 ) : (
                   <Button
@@ -102,7 +110,7 @@ function Jobs() {
                     <Send /> Apply
                   </Button>
                 )}
-                {job.apply_url && (
+                {canApplyInApp(job) && job.apply_url && (
                   <Button asChild variant="glass" size="sm">
                     <a href={job.apply_url} target="_blank" rel="noreferrer"><ExternalLink /> Company site</a>
                   </Button>
