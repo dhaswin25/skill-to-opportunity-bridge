@@ -1,6 +1,9 @@
-# Super Admin Control Center
-- [ ] Add additive management schema, restricted permissions and atomic audit records.
-- [ ] Add protected admin overview, users, employers/jobs, content, AI, analytics, security and audit pages.
-- [ ] Integrate suspension, employer review and managed content with existing features.
-- [ ] Provision the owner's verified account and document secure setup.
-- [ ] Test authorization, persistence, admin workflows and mobile layout.
+# Remix Setup — SkillBridge AI Platform
+
+## Done
+- [x] Empty Drizzle migration set verified; database schema intact (17 tables, RLS on all).
+- [x] Owner account created, email confirmed, Super Admin role granted; /admin and /admin-login verified.
+- [x] Default AI configuration row seeded (openai/gpt-5.6-luna, live, 30/day, SkillBridge prompt); live answer and demo fallback both checked.
+- [x] Courses & learning sources expanded in the skill library and 37 published content items seeded across 6 tracks.
+- [x] Employer flow verified end to end: signup -> pending, admin approve, workspace unlocked.
+- [x] Security test suite added (src/lib/__tests__/admin-security.test.ts); full vitest run passes 33/33.
