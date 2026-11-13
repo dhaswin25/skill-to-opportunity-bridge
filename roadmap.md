@@ -2,10 +2,8 @@
 
 ## Done
 - [x] Empty Drizzle migration set verified; database schema intact (17 tables, RLS on all).
-
-## Open
-- [ ] Provision Super Admin for dhaswinselvam25@gmail.com (confirm email, admin role, /admin + /admin-login access).
-- [ ] Seed default AI configuration row (model openai/gpt-5.6-luna, enabled, live mode, daily_limit 30, SkillBridge prompt).
-- [ ] Expand courses & learning sources catalog (skills.ts + published platform_content across 6 tracks).
-- [ ] Verify employer signup -> pending status, admin approve/reject flow, /employer gating + review banner.
-- [ ] Add src/lib/__tests__/admin-security.test.ts (roles, suspension, AI cost formula, audit log) and run vitest.
+- [x] Owner account created, email confirmed, Super Admin role granted; /admin and /admin-login verified.
+- [x] Default AI configuration row seeded (openai/gpt-5.6-luna, live, 30/day, SkillBridge prompt); live answer and demo fallback both checked.
+- [x] Courses & learning sources expanded in the skill library and 37 published content items seeded across 6 tracks.
+- [x] Employer flow verified end to end: signup -> pending, admin approve, workspace unlocked.
+- [x] Security test suite added (src/lib/__tests__/admin-security.test.ts); full vitest run passes 33/33.
