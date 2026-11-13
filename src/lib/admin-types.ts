@@ -11,7 +11,7 @@ export type AdminCompany = { id: string; owner_id: string; name: string; website
 export type AdminJob = {
   id: string; company_id: string | null; posted_by: string | null; company_name: string; title: string; description: string;
   skills: string[]; category: string; experience_level: string; job_type: string; location: string; apply_url: string | null;
-  is_sample: boolean; published: boolean; created_at: string;
+  is_sample: boolean; is_external: boolean; published: boolean; created_at: string;
 };
 export type AdminReport = { id: string; reporter_id: string; reported_id: string; reason: string; status: "open" | "reviewed" | "dismissed"; created_at: string };
 export type AuditLog = { id: string; actor_id: string | null; action: string; target_id: string | null; details: Json; created_at: string };
