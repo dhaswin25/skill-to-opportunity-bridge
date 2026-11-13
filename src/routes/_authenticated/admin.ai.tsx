@@ -68,7 +68,7 @@ function AiPage() {
                 <Input type="number" min={1} max={1000} value={form.daily_limit} onChange={(e) => setForm({ ...form, daily_limit: Number(e.target.value) })} />
               </label>
               <label className="block space-y-1"><span className="text-sm font-medium">Max tokens per answer</span>
-                <Input type="number" min={256} max={32000} step={256} value={form.max_output_tokens} onChange={(e) => setForm({ ...form, max_output_tokens: Number(e.target.value) })} />
+                <Input type="number" min={256} max={32000} value={form.max_output_tokens} onChange={(e) => setForm({ ...form, max_output_tokens: Number(e.target.value) })} />
                 <span className="text-xs text-muted-foreground">Caps how long (and how costly) a single Copilot answer can be.</span>
               </label>
               <label className="block space-y-1"><span className="text-sm font-medium">System prompt</span>
