@@ -112,7 +112,7 @@ describe("AI token usage and cost", () => {
     for (const m of AI_MODELS) expect(m.output).toBeGreaterThan(m.input);
   });
   it("rounds estimates to six decimal places", () => {
-    expect(estimateCredits("openai/gpt-6-luna", 1, 1)).toBe(0.000002 + 0.0000004 > 0 ? Math.round(0.0000024 * 1e6) / 1e6 : 0);
+    expect(estimateCredits("openai/gpt-6-luna", 1, 1)).toBe(0.000002);
   });
   it("costs nothing when no tokens were used and refuses unknown models", () => {
     expect(estimateCredits("openai/gpt-5.6-luna", 0, 0)).toBe(0);
