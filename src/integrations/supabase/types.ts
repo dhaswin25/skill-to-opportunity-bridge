@@ -71,6 +71,7 @@ export type Database = {
           demo_mode: boolean
           enabled: boolean
           id: number
+          max_output_tokens: number
           model: string
           paused_reason: string | null
           provider: string
@@ -82,6 +83,7 @@ export type Database = {
           demo_mode?: boolean
           enabled?: boolean
           id?: number
+          max_output_tokens?: number
           model?: string
           paused_reason?: string | null
           provider?: string
@@ -93,6 +95,7 @@ export type Database = {
           demo_mode?: boolean
           enabled?: boolean
           id?: number
+          max_output_tokens?: number
           model?: string
           paused_reason?: string | null
           provider?: string

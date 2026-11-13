@@ -22,6 +22,13 @@
       "when": 1794545676780,
       "tag": "0002_fix_job_create_link_check",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1794545961323,
+      "tag": "0003_signup_roles_and_ai_token_cap",
+      "breakpoints": true
     }
   ]
 }
